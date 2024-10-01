@@ -17,6 +17,15 @@ mask.beginFill(0xffffff);
 mask.drawRect(0,0,200,200);
 mask.endFill();
 
+// create sprite bunny
+
+let bunny = PIXI.Sprite.from('https://pixijs.com/assets/bunny.png');
+bunny.x = app.screen.width /2;
+bunny.y = 20;
+bunny.tint = 'rgba(255,160,1,1)'
+bunny.anchor.set(0.5);
+app.stage.addChild(bunny);
+
 // Add container that will hold our masked content
 let maskContainer = new PIXI.Container();
 // Set the mask to use our graphics object from above
@@ -40,7 +49,22 @@ let text = new PIXI.Text(
   }
 );
 text.x = 10;
+
 maskContainer.addChild(text);
+
+
+
+
+maskContainer.eventMode = 'static';
+maskContainer.cursor = 'pointer';
+maskContainer.on('pointerdown', ()=> {console.log('debugtext')})
+
+// text.eventMode = 'static';
+// text.cursor = 'pointer';
+// text.on('pointerdown', ()=> {console.log('debuged')})
+
+//event mouse
+
 
 // Add a ticker callback to scroll the text up and down
 let elapsed = 0.0;
@@ -48,4 +72,6 @@ app.ticker.add((delta) => {
   // Update the text's y coordinate to scroll it
   elapsed += delta;
   text.y = 10 + -100.0 + Math.cos(elapsed/50.0) * 100.0;
+
+  bunny.rotation += 0.1 * delta;
 });
